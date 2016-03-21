@@ -3,29 +3,41 @@
 <head>
 
 	<meta charset="utf-8">
-
 	<title>Login</title>
 	<link rel="stylesheet" href="css2.css">
 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Varela+Round">
+<?php
+					$servername = "localhost";
+					$username = "dbMeeting";
+					$password = "192837465";
+					$dbname = "dbmeeting";
 
+					// Create connection
+					$conn = new mysqli($servername, $username, $password, $dbname);
+					// Check connection
+					if ($conn->connect_error) {
+						die("Connection failed: " . $conn->connect_error);
+					} 
+
+					if ($conn->query($sql) === TRUE) {
+						echo "New record created successfully";
+					} else {
+						echo "Error: " . $sql . "<br>" . $conn->error;
+					}
+					
+					if(isset($_POST['submit']))
+					{
+					$SQL = "select * from users where username='$_POST["username"]' and password='$_POST["password"]'";
+					$result = mysql_query($SQL);
+					}
+					
+					
+					
+					$conn->close();
+?>
 	<!--[if lt IE 9]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
-	
-	<?php
-		$servername = "localhost";
-		$username = "dbMeeting";
-		password = "192837465";
-
-		// Create connection
-		$conn = new mysqli($servername, $username, $password);
-
-		// Check connection
-		if ($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
-	} 
-	echo "Connected successfully";
-	?>
 
 </head>
 
@@ -39,13 +51,14 @@
 
 			<fieldset>
 
-				<p><label for="email">Username</label></p>
-				<p><input type="email" id="email" value="Username" onBlur="if(this.value=='')this.value='username'" onFocus="if(this.value=='username')this.value=''"></p> <!-- JS because of IE support; better: placeholder="mail@address.com" -->
+				<p><label for="username">Username</label></p>
+				<p><input type="username" id="username" value="Username" onBlur="if(this.value=='')this.value='Username'" onFocus="if(this.value=='Username')this.value=''"></p> <!-- JS because of IE support; better: placeholder="mail@address.com" -->
 				
 				<p><label for="password">Password</label></p>
 				<p><input type="password" id="password" value="password" onBlur="if(this.value=='')this.value='password'" onFocus="if(this.value=='password')this.value=''"></p> <!-- JS because of IE support; better: placeholder="password" -->
 
-				<p><input type="submit" value="Sign In"></p> <p><input type="submit" value="Register"></p>
+				<p><input type="submit" value="Sign In" ></p> 
+				<p><input type="submit" value="Register" OnClick="javascript:location.href='registration.html'"></p>
 
 			</fieldset>
 

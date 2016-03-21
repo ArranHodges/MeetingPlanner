@@ -4,7 +4,7 @@
 
 	<meta charset="utf-8">
 
-	<title>Login</title>
+	<title>Registration</title>
 	<link rel="stylesheet" href="css2.css">
 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Varela+Round">
 
@@ -12,23 +12,37 @@
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 	
-	<?php
-		$servername = "localhost";
-		$username = "dbMeeting";
-		password = "192837465";
+<?php
+					$servername = "localhost";
+					$username = "dbMeeting";
+					$password = "192837465";
+					$dbname = "dbmeeting";
 
-		// Create connection
-		$conn = new mysqli($servername, $username, $password);
+					// Create connection
+					$conn = new mysqli($servername, $username, $password, $dbname);
+					// Check connection
+					if ($conn->connect_error) {
+						die("Connection failed: " . $conn->connect_error);
+					} 
 
-		// Check connection
-		if ($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
-	}  
-	else{
-	echo "Connected successfully";
-
-	}
-	?>
+					if ($conn->query($sql) === TRUE) {
+						echo "New record created successfully";
+					} else {
+						echo "Error: " . $sql . "<br>" . $conn->error;
+					}
+				
+				if(isset($_POST['submit']))
+					{
+					$SQL = "INSERT INTO users ( username, password, firstName, lastName, emailAddress) VALUES ($_POST["username"], $_POST["password"], $_POST["firstname"], $_POST["lastname"], $_POST["email"])";
+					$result = mysql_query($SQL);
+					}
+				
+				
+				
+				
+				
+				
+?>
 
 </head>
 
@@ -42,26 +56,31 @@
 
 			<fieldset>
 
-				<p><label for="email">Username</label></p>
-				<p><input type="email" id="email" value="Username" onBlur="if(this.value=='')this.value='username'" onFocus="if(this.value=='username')this.value=''"></p> <!-- JS because of IE support; better: placeholder="mail@address.com" -->
-				<script></script>
+				<p><label for="username">Username</label></p>
+				<p><input type="username" id="username" value="Username" onBlur="if(this.value=='')this.value='Username'" onFocus="if(this.value=='Username')this.value=''"></p> <!-- JS because of IE support; better: placeholder="mail@address.com" -->
+
 				<p><label for="password">Password</label></p>
 				<p><input type="password" id="password" value="password" onBlur="if(this.value=='')this.value='password'" onFocus="if(this.value=='password')this.value=''"></p> <!-- JS because of IE support; better: placeholder="password" -->
-
-				<p><label for="email">First Name</label></p>
-				<p><input type="email" id="email" value="First Name" onBlur="if(this.value=='')this.value='First Name'" onFocus="if(this.value=='First Name')this.value=''"></p> <!-- JS because of IE support; better: placeholder="mail@address.com" -->
-				<script></script>
-				<p><label for="email">Last Name</label></p>
-				<p><input type="email" id="email" value="Last Name" onBlur="if(this.value=='')this.value='Last Name'" onFocus="if(this.value=='Last Name')this.value=''"></p> <!-- JS because of IE support; better: placeholder="mail@address.com" -->
-				<p><label for="email">Email</label></p>
-				<p><input type="email" id="email" value="Email" onBlur="if(this.value=='')this.value='Email'" onFocus="if(this.value=='Email')this.value=''"></p> <!-- JS because of IE support; better: placeholder="mail@address.com" -->
+				
+				<p><label for="username">First Name</label></p>
+				<p><input type="username" id="firstname" value="First Name" onBlur="if(this.value=='')this.value='First Name'" onFocus="if(this.value=='First Name')this.value=''"></p> <!-- JS because of IE support; better: placeholder="mail@address.com" -->
+				
+				<p><label for="username">Last Name</label></p>
+				<p><input type="username" id="lastname" value="Last Name" onBlur="if(this.value=='')this.value='Last Name'" onFocus="if(this.value=='Last Name')this.value=''"></p> <!-- JS because of IE support; better: placeholder="mail@address.com" -->
+				
+				<p><label for="username">Email</label></p>
+				<p><input type="username" id="email" value="Email" onBlur="if(this.value=='')this.value='Email'" onFocus="if(this.value=='Email')this.value=''"></p> <!-- JS because of IE support; better: placeholder="mail@address.com" -->
+				
+				<p><input type="submit" value="Back" OnClick="javascript:location.href='Login.html'"></p>
 				<p><input type="submit" value="Register"></p>
+
+
 
 			</fieldset>
 
 		</form>
 
-	</div> <!-- end login -->
+	</div> <!-- end registration -->
 
 </body>	
 </html>

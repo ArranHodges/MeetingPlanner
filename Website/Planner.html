@@ -10,14 +10,33 @@
 <script src="fullcalendar/fullcalendar.min.js"></script>
 <script>
 	$(document).ready(function() {
-
+$('#calendar').fullCalendar('today');
 		$('#calendar').fullCalendar({
+		
 		header: {
 				left: 'prev,next today',
 				center: 'title',
 				right: 'month,agendaWeek,agendaDay'
 			},
-			defaultDate: '2016-03-21',
+			selectable: true,
+			selectHelper: true,
+			select: function(start, end) {
+				var title = prompt('Title:');
+				var agenda = prompt('Agenda');
+				var eventData;
+				if (title) {
+					eventData = {
+						title: title,
+						start: start,
+						end: end
+						
+						
+						
+					};
+					$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+				}
+				$('#calendar').fullCalendar('unselect');
+			},
 			editable: true,
 			eventLimit: true, // allow "more" link when too many events
 			events: []
@@ -27,6 +46,7 @@
 	});
 
 </script>
+
 <style>
 
 	body {
